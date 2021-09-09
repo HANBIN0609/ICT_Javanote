@@ -30,3 +30,19 @@
 - 스코프 : 매개변수, 변수의 영역
 	- 같은 영역내에서 변수 중복선언 불가
 		
+- 수학적 측면에서의 재귀적인 사고
+  - 함수를 선언할 때 자기 함수를 호출하는 것 : 메소드의 재귀 호출(Reculsive)
+  - ex)
+	public static void main(String[] args) {
+		
+		System.out.println("5 factorial : " + factorial(5));
+	}
+	
+	public static int factorial(int n) {
+		if (n == 1) {
+			return 1;
+		} else {
+			return n * factorial(n-1);
+		}
+	}
+>>> factorial 함수를 선언할 때 본인 함수를 함수내에 호출
