@@ -1,0 +1,123 @@
+★★★★★★★★★★★★★클래스 변수와 클래스 메소드★★★★★★★★★★★★★
+
+static 선언을 붙여서 선언하는 클래스 변수(★★★static 변수 = 정적 변수 = 공유변수★★★)
+ - 선언된 클래스의 모든 인스턴스가 공유하는 클래스 변수(클래스명으로도 접근이 가능해서 클래스변수라고도 부름)
+ 
+*** 특이한 점 및 이유
+	//new로 객체생성을 하지 않았는데도 메모리에 값이 올라감. 왜?
+	//컴파일러는 참조형을 만나면 우선 스캔을 하면서 static의 유무를 확인함.
+	//static이 있으면 메모리에 올림
+
+ - 특징
+      1) static 메모리에 먼저 올린다.
+      2) 한번만 메모리를 잡는다. (= 모든 객체들이 static 항목을 공유한다.)
+
+ - 클래스 변수의 접근 방법
+	- 클래스 내부 접근 : static 변수가 선언된 클래스 내에서 이름만으로 직접 접근 가능
+	- 클래스 외부 접근 :  객체명 또는 클래스명으로 접근 가능
+			   접근 수준 지시자가 허용하는 범위 내에서 접근 가능
+			   private은 해당 클래스 내에서만 접근 가능
+
+클래스 변수의 초기화 시점과 초기화 방법
+ - 생성자 내에서 초기화 절대 시키면 안됨!
+
+클래스 변수의 활용
+ - 인스턴스 별로 가지고 있을 필요가 없는 변수를 클래스 변수로 선언함
+	- 값의 참조가 목적인 변수, ex) Math.PI >>>Math클래스 내의 public static final double PI = 3.14..........; 
+	- 값의 공유가 목적인 변수
+ - 그리고 그 값이 외부에서도 참조하는 값이라면 public으로 선언한다.
+
+static 함수에 인스턴스 변수와 인스턴스 함수가 올 수 없는 이유
+ - static변수/함수와 인스턴스 변수/함수는 메모리 생성 시기가 다르기 때문에 올 수 없다. static내에는 static만 올 수 있다.
+  static은 컴파일러가 최초 클래스를 스캔할 때 메모리에 올리고 인스턴스 항목은 객체가 생성될 때 메모리에 올라간다.
+
+static을 붙여서 정의하는 클래스와 메소드의 호출
+ - 클래스 변수의 호출방식과 동일함
+
+클래스메소드(static)로 정의하는 것이 옳은 경우
+ - 단순 기능 제공이 목적인 메소드들, 인스턴스 변수와 관련지을 이유가 없는 메소드들은 static으로 선언하는 것이 좋음.
+
+public static void main(String[ ] args){ } 
+ - static인 이유 : 인스턴스 생성과 관계없이 제일 먼저 호출되는 메소드
+ - public인 이유 : main 메소드의 호출명령은 외부로부터 시작되는 명령이다. 일종의 약속.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3.아래의 프로그램을 작성 하시오.(수정필요)
+
+다음 멤버를 가지고 직사각형을 표현하는 Rectangle 클래스를 작성하라.
+
+- int 타입의 x, y, width, height 필드: 사각형을 구성하는 점과 크기 정보
+- x, y, width, height 값을 매개변수로 받아 필드를 초기화하는 생성자
+- int square() : 사각형 넓이 리턴
+- void show() : 사각형의 좌표와 넓이를 화면에 출력
+- boolean contains(Rectangle r) : 매개변수로 받은 r이 현 사각형 안에 있으면 true 리턴
+- main() 메소드의 코드와 실행 결과는 다음과 같다
+
+
+    public static void main(String[] args) {
+    	Rectangle r = new Rectangle(2, 2, 8, 7);
+    	Rectangle s = new Rectangle(5, 5, 6, 6);
+    	Rectangle t = new Rectangle(1, 1, 10, 10);
+
+    	r.show();
+    	System.out.println("s의 면적은 "+s.square());
+    	if(t.contains(r)) System.out.println("t는 r을 포함합니다.");
+    	if(t.contains(s)) System.out.println("t는 s를 포함합니다.");
+    }
+
+  출력
+
+    (2,2)에서 크기가 8x7인 사각형
+    s의 면적은 36
+    t는 r을 포함합니다.
+    t는 s을 포함합니다.    
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
+
+public boolean contains(Rectangle compare) {
+		//1) x, y 값 비교 : 작은 숫자  찾기
+ 		//2) x+width 와  y+height 각각의 값 비교 : 큰 숫자 찾기 
+		//3) 1번과 2번의 조건을 모두 만족하면  비교 대상을 포함 하므로 true
+
+		//Rectangle r = new Rectangle(2, 2, 8, 7);
+		//Rectangle s = new Rectangle(5, 5, 6, 6);
+		//Rectangle t = new Rectangle(1, 1, 10, 10);
+				
+		this.x2 = x + width;
+		this.y2 = y + height;
+		
+		compare.x2 = compare.x + compare.width;
+		compare.y2 = compare.y + compare.height;		
+			
+		if((this.x <= compare.x) && (this.y <= compare.y) && (this.y2 >= compare.y2) && (this.x2 >= compare.x2) )
+		
+		{  //x=y 값이 같아서 시작값은 x만 비교함
+			return true;
+		}else
+			return false;
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+
